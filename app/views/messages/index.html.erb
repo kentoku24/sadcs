@@ -1,0 +1,9 @@
+<h1>Messages#index</h1>
+<p>Find me in app/views/messages/index.html.erb</p>
+      	<table class="messages" id="messages">
+    		<col class="username" />
+    		<col class="body" />
+    		<% @messages.each do |message| %>
+      			<%= render 'message', :message => message %>
+    		<% end %>
+  		</table>
