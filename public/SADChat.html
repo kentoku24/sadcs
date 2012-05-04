@@ -1,4 +1,8 @@
+<!DOCTYPE HTML>
+<html>
+<head>
 <meta charset="UTF-8">
+<title>SADCS</title>
 <style type="text/css">
 <!--
 body {
@@ -66,36 +70,9 @@ header, section, footer, aside, nav, article, figure {
 }
 -->
 </style>
+</head>
 
-
-<script  type="text/javascript">
-function trim(msg) {
-	return msg.replace(/[\s\r\t\n]/g, '');
-}
-function decrypt() {
-	var oTable = document.getElementById('messages');
-    //gets table
-
-    var rowLength = oTable.rows.length;
-    //gets rows of table
-
-    for (i = 0; i < rowLength; i++){
-    //loops through rows
-
-       var oCells = oTable.rows.item(i).cells;
-       //gets cells of current row
-       var cellLength = oCells.length;
-           for(var j = 1; j < cellLength; j+= 2){
-           //loops through each cell in current row
-              <!--get your cell info here-->
-              var cellVal = oCells.item(j).innerHTML;
-			  cellVal = trim(cellVal);
-              oCells.item(j).innerHTML = compute('decrypt', cellVal);
-           }
-    }
-}
-</script>
-
+<body>
 <script src="pidcrypt.js"></script>
 <script src="pidcrypt_util.js"></script>
 <script src="asn1.js"></script><!--needed for parsing decrypted rsa certificate-->
@@ -104,49 +81,38 @@ function decrypt() {
 <script src="prng4.js"></script><!--needed for rsa key generation-->
 <script src="rsa.js"></script><!--needed for rsa en-/decryption-->
 <script src="pagefunction.js"></script>
-<script src="readPriFile.js"></script>
-<script src="readPubFile.js"></script>
 
-
-
+<form name="theForm">
 <div class="container">
   <header>
     <h1>SAD<span class="darken">CS</span></h1>
     <h6>Secure Anonymous Decentralized <span class="darken">Communication System</span></h6>
   </header>
-  
-   <%= form_for @message, :html => {:id => 'msgForm'} do |form| %>
-    <ul>
-      <li><%= form.label :name %><%= form.text_field :username %></li>
-      <li><%= form.label :body %><%= form.text_field :body %></li>
-      <li><%= form.submit %></li>
-    </ul>
-  <% end %>
-  <form name="theForm">
   <div class="sidebar1">
     <aside>
       <p>Your Private Key</p>
-      		<table>
-            	<tr>
-                	<td>
-      					<div id="prigood"></div>
-                    </td>
-                    <td>
-      					<input id="private_key_file" type="file" name="private_key_file" onChange="startPriRead()" />
-                    </td>
-                </tr>
-             </table>
+			<textarea id="private_key" name="private_key" rows="15" cols="30">-----BEGIN RSA PRIVATE KEY-----
+	MIICXQIBAAKBgQDVd/gb2ORdLI7nTRHJR8C5EHs4RkRBcQuQdHkZ6eq0xnV2f0hk
+	WC8h0mYH/bmelb5ribwulMwzFkuktXoufqzoft6Q6jLQRnkNJGRP6yA4bXqXfKYj
+	1yeMusIPyIb3CTJT/gfZ40oli6szwu4DoFs66IZpJLv4qxU9hqu6NtJ+8QIDAQAB
+	AoGADbnXFENP+8W/spO8Dws0EzJCGg46mVKhgbpbhxUJaHJSXzoz92/MKAqVUPI5
+	mz7ZraR/mycqMia+2mpo3tB6YaKiOpjf9J6j+VGGO5sfRY/5VNGVEQ+JLiV0pUmM
+	doq8n2ZhKdSd5hZ4ulb4MFygzV4bmH29aIMvogMqx2Gkp3kCQQDx0UvBoNByr5hO
+	Rl0WmDiDMdWa9IkKD+EkUItR1XjpsfEQcwXet/3QlAqYf+FE/LBcnA79NdBGxoyJ
+	XS+O/p4rAkEA4f0JMSnIgjl7Tm3TpNmbHb7tsAHggWIrPstCuHCbNclmROfMvcDE
+	r560i1rbOtuvq5F/3BQs+QOnOIz1jLslUwJAbyEGNZfX87yqu94uTYHrBq/SQIH8
+	sHkXuH6jaBo4lP1HkY2qtu3LYR2HuQmb1v5hdk3pvYgLjVsVntMKVibBPQJBAKd2
+	Dj20LLTzS4BOuirKZbuhJBjtCyRVTp51mLd8Gke9Ol+NNZbXJejNvhQV+6ad7ItC
+	gnDfMoRERMIPElZ6x6kCQQCP45DVojZduLRuhJtzBkQXJ4pCsGC8mrHXF3M+hJV+
+	+LAYJbXrQa4mre59wR0skgb6CwGg1siMrDzJgu3lmBB0
+	-----END RSA PRIVATE KEY-----</textarea><br />
       <p>Friend's Public Key</p>
-      		<table>
-            	<tr>
-                	<td>
-            			<div id="pubgood"></div>
-                    </td>
-                	<td>
-       					<input id="public_key_file" type="file" name="public_key_file" onChange="startPubRead()" />
-                     </td>
-                </tr>
-            </table>
+			<textarea id="public_key" name="public_key" rows="6" cols="30">-----BEGIN PUBLIC KEY-----
+				MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVd/gb2ORdLI7nTRHJR8C5EHs4
+				RkRBcQuQdHkZ6eq0xnV2f0hkWC8h0mYH/bmelb5ribwulMwzFkuktXoufqzoft6Q
+				6jLQRnkNJGRP6yA4bXqXfKYj1yeMusIPyIb3CTJT/gfZ40oli6szwu4DoFs66IZp
+				JLv4qxU9hqu6NtJ+8QIDAQAB
+				-----END PUBLIC KEY-----</textarea><br>
       <p>Message to Friends</p>
       <textarea name="input" cols="40" rows="6">Text to encrypt.</textarea> 
       <br>
@@ -154,9 +120,9 @@ function decrypt() {
   </div>
   <article class="content">
     <h1><!-- end .content -->Message</h1>
-    
+		<textarea id="crypted" name="crypted" rows="15" cols="65"></textarea> <br>
 		<input value="Encrypt" onclick="compute('encrypt');" type="BUTTON">
-		<input value="Decrypt" onclick="decrypt();" type="BUTTON"><a name="results"></a>
+		<input value="Decrypt" onclick="compute('decrypt');" type="BUTTON"><a name="results"></a>
 		<p>
 	</p><h4>Results:</h4>
 		<div id="ENCRYPT"></div><br>
@@ -164,17 +130,15 @@ function decrypt() {
 		<div id="DEBUG"></div><br>
   </article>
   </form>
-  
-  
-      	<table class="messages" id="messages">
-    		<col class="username" />
-    		<col class="body" />
-    		<% @messages.each do |message| %>
-      			<%= render 'message', :message => message %>
-    		<% end %>
-  		</table>
-  
+  <script>
+  	document.getElementById('public_key').value = public_key_1024;
+  	document.getElementById('private_key').value = private_key_1024;
+  </script>
+
   <footer>
     <p>&nbsp;</p>
 </footer>
-<!-- end .container --></div>
+  <!-- end .container --></div>
+</body>
+</html>
+
