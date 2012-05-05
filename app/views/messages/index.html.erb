@@ -68,43 +68,7 @@ header, section, footer, aside, nav, article, figure {
 </style>
 
 
-<script  type="text/javascript">
 
-
-
-
-function trim(msg) {
-	return msg.replace(/[\s\r\t\n]/g, '');
-}
-function decrypt() {
-	var oTable = document.getElementById('messages');
-    //gets table
-
-    var rowLength = oTable.rows.length;
-    //gets rows of table
-
-    for (i = 0; i < rowLength; i++){
-    //loops through rows
-
-       var oCells = oTable.rows.item(i).cells;
-       //gets cells of current row
-       var cellLength = oCells.length;
-           for(var j = 1; j < cellLength; j+= 2){
-           //loops through each cell in current row
-              <!--get your cell info here-->
-              var cellVal = oCells.item(j).innerHTML;
-			  cellVal = trim(cellVal);
-              oCells.item(j).innerHTML = compute('decrypt', cellVal);
-           }
-    }
-}
-
-
-function encryptAndSubmit() {
-	document.getElementById('encryptButton').click();
-	document.getElementsByTagName('form')[0].commit.click();
-}
-</script>
 
 <script src="pidcrypt.js"></script>
 <script src="pidcrypt_util.js"></script>
@@ -116,6 +80,7 @@ function encryptAndSubmit() {
 <script src="pagefunction.js"></script>
 <script src="readPriFile.js"></script>
 <script src="readPubFile.js"></script>
+<script src="localFunctions.js"></script>
 
 
 
