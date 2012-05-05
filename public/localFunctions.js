@@ -7,6 +7,7 @@ function hello() {
 	alert("submitted!");
 }
 function encryptAndSubmit() {
+	var button = document.getElementById('encryptButton');
 	document.getElementById('encryptButton').click();
 	document.getElementsByTagName('form')[0].commit.click();
 }
