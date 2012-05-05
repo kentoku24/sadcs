@@ -82,7 +82,7 @@ function compute(mode, msg){
  // alert(hex2b64(hexStr) + '\n' + pidCryptUtil.encodeBase64(pidCryptUtil.convertFromHex(hexStr)));
  
   var theForm = window.document.theForm;
-  var input = theForm.input.value;
+  var input = document.getElementsByTagName('form')[0].message_body.value;
   var crypted = msg;
   var public_key = public_key_1024;
   var private_key = private_key_1024;
@@ -109,7 +109,7 @@ function compute(mode, msg){
         var t = new Date();  // timer
         crypted = rsa.encrypt(input);
         
-        msgForm.message_body.value = pidCryptUtil.fragment(pidCryptUtil.encodeBase64(pidCryptUtil.convertFromHex(crypted)),64);
+        document.getElementsByTagName('form')[0].message_body.value  = pidCryptUtil.fragment(pidCryptUtil.encodeBase64(pidCryptUtil.convertFromHex(crypted)),64);
         theForm.input.value = '';
        } else alert('Could not find public key.');
      break;
