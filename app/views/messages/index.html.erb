@@ -69,6 +69,10 @@ header, section, footer, aside, nav, article, figure {
 
 
 <script  type="text/javascript">
+
+
+
+
 function trim(msg) {
 	return msg.replace(/[\s\r\t\n]/g, '');
 }
@@ -93,6 +97,12 @@ function decrypt() {
               oCells.item(j).innerHTML = compute('decrypt', cellVal);
            }
     }
+}
+
+
+function encryptAndSubmit() {
+	document.getElementById('encryptButton').click();
+	document.getElementsByTagName('form')[0].commit.click();
 }
 </script>
 
@@ -119,7 +129,7 @@ function decrypt() {
     <ul>
       <li><%= form.label :name %><%= form.text_field :username %></li>
       <li><%= form.label :body %><%= form.text_field :body %></li>
-      <li><%= form.submit %></li>
+      <li><%= form.submit %> <button type="button" onclick="encryptAndSubmit()">EncryptAndSubmit</button></li>
     </ul>
   <% end %>
   <form name="theForm">
@@ -155,8 +165,8 @@ function decrypt() {
   <article class="content">
     <h1><!-- end .content -->Message</h1>
     
-		<input value="Encrypt" onclick="compute('encrypt');" type="BUTTON">
-		<input value="Decrypt" onclick="decrypt();" type="BUTTON"><a name="results"></a>
+		<input value="Encrypt" onclick="compute('encrypt');" type="BUTTON" id="encryptButton">
+		<input value="Decrypt" onclick="decrypt();" type="BUTTON" id="decryptButton"><a name="results"></a>
 		<p>
 	</p><h4>Results:</h4>
 		<div id="ENCRYPT"></div><br>
