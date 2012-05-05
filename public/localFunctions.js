@@ -6,15 +6,18 @@ function hello() {
 	
 	alert("submitted!");
 }
+//this works
 function encryptAndSubmit() {
 	var button = document.getElementById('encryptButton');
 	document.getElementById('encryptButton').click();
 	document.getElementsByTagName('form')[0].commit.click();
 }
+
+
 function readPrivateAndDecrypt() {
 	startPriRead();
 	// this could look funky, but it doesnt work without this delay function
-	setTimeout(function() { document.getElementById('ddddd').click();},10);
+	setTimeout(function() { document.getElementById('decryptButton').click();},1000);
 }
 function readPublicAndSubmit() {
 	startPubRead();
