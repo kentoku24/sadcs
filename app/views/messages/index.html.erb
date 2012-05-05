@@ -94,7 +94,7 @@ header, section, footer, aside, nav, article, figure {
     <ul>
       <li><%= form.label :name %><%= form.text_field :username %></li>
       <li><%= form.label :body %><%= form.text_field :body %></li>
-      <li><%= form.submit %> <button type="button" onclick="encryptAndSubmit()">EncryptAndSubmit</button></li>
+      <li> <div style="display:none"> <%= form.submit %> </div> <button type="button" onclick="encryptAndSubmit()">EncryptAndSubmit</button></li>
     </ul>
   <% end %>
   <form name="theForm">
@@ -129,7 +129,7 @@ header, section, footer, aside, nav, article, figure {
   </div>
   <article class="content">
     <h1><!-- end .content -->Message</h1>
-    
+    <div style="display:none">
 		<input value="Encrypt" onclick="compute('encrypt');" type="BUTTON" id="encryptButton">
 		<input value="Decrypt" onclick="decrypt();" type="BUTTON" id="decryptButton"><a name="results"></a>
 		<p>
@@ -137,6 +137,7 @@ header, section, footer, aside, nav, article, figure {
 		<div id="ENCRYPT"></div><br>
 		<div id="DECRYPT"></div><br>
 		<div id="DEBUG"></div><br>
+	</div>
   </article>
   </form>
   
