@@ -56,7 +56,7 @@ function decrypt() {
     var rowLength = oTable.rows.length;
     //gets rows of table
 
-    for (i = 0; i < rowLength; i++){
+    for (i = 0; i < rowLength; i+=2){
     //loops through rows
 
        var oCells = oTable.rows.item(i).cells;
