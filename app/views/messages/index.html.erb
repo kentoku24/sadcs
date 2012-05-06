@@ -13,78 +13,69 @@
 <script src="localFunctions.js"></script>
 
 
-
+<!-- The Large outter box -->
 <div class="container">
   <header>
     <h1>SAD<span class="darken">CS</span></h1>
     <h6>Secure Anonymous Decentralized <span class="darken">Communication System</span></h6>
   </header>
+<!-- Ruby Form Post -->
   <div style="display:none">
-   <%= form_for @message, :html => {:id => 'msgForm'} do |form| %>
-    <ul>
-      <li><%= form.label :body %><%= form.text_field :body %></li>
-      <li> <div style="display:none"> <%= form.submit %> </div>
-    </ul>
-  <% end %>
+    <%= form_for @message, :html => {:id => 'msgForm'} do |form| %>
+      <%= form.text_field :body %>
+      <%= form.submit %>
+    <% end %>
   </div>
+<!-- Form For Pub/Pri Keys and Text -->
   <div class="sidebar1">
     <aside>
         <form name="theForm">
-      <p>Your Private Key</p>
+          <p>Your Private Key</p>
       		<table>
-            	<tr>
-                	<td>
-      					<div id="prigood"></div>
-                    </td>
-                    <td>
+            <tr>
+              <td>
+      				  <div id="prigood"></div>
+              </td>
+              <td>
       					<input id="private_key_file" type="file" name="private_key_file" onChange="readPrivateAndDecrypt()" />
-                    </td>
-                </tr>
-             </table>
-      <p>Friend's Public Key</p>
+              </td>
+            </tr>
+          </table>
+          <p>Friend's Public Key</p>
       		<table>
-            	<tr>
-                	<td>
-            			<div id="pubgood"></div>
-                    </td>
-                	<td>
-       					<input id="public_key_file" type="file" name="public_key_file" onChange="startPubRead()" />
-                     </td>
-                </tr>
-            </table>
-      <p>Message to Friend</p>
-      <textarea name="input" cols="40" rows="6">Text to encrypt.</textarea> 
-      <button type="button", onclick="encryptMsg()"> Encrypt and Submit </button>
-      <br>
+            <tr>
+              <td>
+            	  <div id="pubgood"></div>
+              </td>
+             	<td>
+       				  <input id="public_key_file" type="file" name="public_key_file" onChange="startPubRead()" />
+              </td>
+            </tr>
+          </table>
+          <p>Message to Friend</p>
+          <textarea name="input" cols="40" rows="6">Text to encrypt.</textarea> 
+          <button type="button", onclick="encryptMsg()"> Encrypt and Submit </button><br/>
           <div style="display:none">
-		<input value="Encrypt" onclick="compute('encrypt');" type="BUTTON" id="encryptButton">
-		<input value="Decrypt" onclick="decrypt();" type="BUTTON" id="decryptButton"><a name="results"></a>
-		<p>
-	</p><h4>Results:</h4>
-		<div id="ENCRYPT"></div><br>
-		<div id="DECRYPT"></div><br>
-		<div id="DEBUG"></div><br>
-	</div>
-      
-      
-        </form>
+		        <input value="Encrypt" onclick="compute('encrypt');" type="BUTTON" id="encryptButton">
+		        <input value="Decrypt" onclick="decrypt();" type="BUTTON" id="decryptButton"><a name="results"></a>
+		        <div id="ENCRYPT"></div><br>
+		        <div id="DECRYPT"></div><br>
+		        <div id="DEBUG"></div><br>
+	        </div>     
+       </form>
     </aside>
   </div>
+<!-- Main Window where Messages are printed -->
   <article class="content">
-    <h1><!-- end .content -->Messages</h1>
-      	<table class="messages" id="messages">
+    <h1>Messages</h1>
+      <table class="messages" id="messages">
     		<col class="body" />
     		<% @messages.each do |message| %>
-      			<%= render 'message', :message => message %>
+      	  <%= render 'message', :message => message %>
     		<% end %>
   		</table>
   </article>
-
-  
-  
-
-  
+ 
   <footer>
-    <p>&nbsp;</p>
-</footer>
-<!-- end .container --></div>
+  </footer>
+</div>

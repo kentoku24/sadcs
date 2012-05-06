@@ -1,16 +1,13 @@
 class MessagesController < ApplicationController
   def index
-    # delete old messages
-    
+  
+    # delete old messages after 12 hours
     for message in Message.all.each
-      if message.created_at < Time.now - 60*60
+      if message.created_at < Time.now - 60*60*12
         message.destroy
       end
     end
     
-#    now = Time.now
-#    last = now - (now.min % 10).minutes - now.sec  ## making time 15:30:00 or something
-#    before_last = last - 10.minutes
     @message  = Message.new
 	  @messages = Message.order("mixnum");
 	  
