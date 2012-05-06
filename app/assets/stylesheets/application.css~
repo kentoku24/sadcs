@@ -42,7 +42,7 @@ header {
 .content {
 	width: 60%;
 	padding: 10px;
-  overflow: auto;
+/*  overflow: auto; */
 }
 
 

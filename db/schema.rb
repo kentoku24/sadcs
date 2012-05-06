@@ -14,7 +14,6 @@
 ActiveRecord::Schema.define(:version => 20120504232010) do
 
   create_table "messages", :force => true do |t|
-    t.string   "username"
     t.string   "body"
     t.integer  "mixnum"
     t.datetime "created_at", :null => false

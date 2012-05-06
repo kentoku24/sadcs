@@ -1,3 +1,4 @@
 <tr>
+  <td>Message: </td>
   <td><%= message.body %></td>
 </tr>

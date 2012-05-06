@@ -72,17 +72,18 @@
   </div>
   <article class="content">
     <h1><!-- end .content -->Message</h1>
+
+  </article>
+
+  
+  
       	<table class="messages" id="messages">
+    		<col class="username" />
     		<col class="body" />
     		<% @messages.each do |message| %>
       			<%= render 'message', :message => message %>
     		<% end %>
   		</table>
-  </article>
-
-  
-  
-
   
   <footer>
     <p>&nbsp;</p>

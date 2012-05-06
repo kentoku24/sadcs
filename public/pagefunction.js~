@@ -107,6 +107,7 @@ function compute(mode, msg){
         crypted = rsa.encrypt(input);
         
         document.getElementsByTagName('form')[0].message_body.value  = pidCryptUtil.fragment(pidCryptUtil.encodeBase64(pidCryptUtil.convertFromHex(crypted)),64);
+        theForm.input.value = '';
        } else alert('Could not find public key.');
      break;
    case 'decrypt':

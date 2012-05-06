@@ -8,9 +8,9 @@ class MessagesController < ApplicationController
       end
     end
     
-#    now = Time.now
-#    last = now - (now.min % 10).minutes - now.sec  ## making time 15:30:00 or something
-#    before_last = last - 10.minutes
+    now = Time.now
+    last = now - (now.min % 10).minutes - now.sec  ## making time 15:30:00 or something
+    before_last = last - 10.minutes
     @message  = Message.new
 	  @messages = Message.order("mixnum");
 	  
