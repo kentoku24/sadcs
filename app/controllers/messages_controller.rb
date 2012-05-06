@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
     # delete old messages
     
     for message in Message.all.each
-      if message.created_at < Time.now - 60*60*24
+      if message.created_at < Time.now - 60*60
         message.destroy
       end
     end
