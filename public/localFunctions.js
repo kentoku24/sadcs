@@ -27,8 +27,13 @@ function trim(msg) {
 
 
 function encryptMsg() {
-  document.getElementsByTagName('form')[0].message_body.value = window.document.theForm.input.value;
-  encryptAndSubmit();
+  var file = document.getElementById('public_key_file').files[0];
+  if (file == null) {
+    alert("No Key");
+  } else {
+    document.getElementsByTagName('form')[0].message_body.value = window.document.theForm.input.value;
+    encryptAndSubmit();
+  }
 }
 
 function decrypt() {
