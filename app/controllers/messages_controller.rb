@@ -11,6 +11,10 @@ class MessagesController < ApplicationController
     @message  = Message.new
 	  @messages = Message.order("mixnum");
 	  
+	  if @messages.length < 3
+	    @messages = {}
+	  end
+	  
 	  respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @messages }
