@@ -130,3 +130,191 @@ function compute(mode, msg){
     break;
   }
 }
+
+
+
+/*********************************************************************************************
+**********************************************************************************************
+*************    Items from Localfunctions         *******************************************
+**********************************************************************************************
+*********************************************************************************************/
+
+
+//this works
+function encryptAndSubmit() {
+	var button = document.getElementById('encryptButton');
+	document.getElementById('encryptButton').click();
+	document.getElementsByTagName('form')[0].commit.click();
+}
+
+
+function readPrivateAndDecrypt() {
+	startPriRead();
+	// this could look funky, but it doesnt work without this delay function
+	setTimeout(function() { document.getElementById('decryptButton').click();},1000);
+}
+
+function readPublicAndSubmit() {
+	startPubRead();
+	//document.getElementById('encryptAndSubmitButton').click();	
+	//setTimeout(function() { document.getElementById('encryptButton').click();},10);
+	//setTimeout(function() document.getElementsByTagName('form')[0].commit.click();},20);
+	
+}
+
+function trim(msg) {
+	return msg.replace(/[\s\r\t\n]/g, '');
+}
+
+
+function encryptMsg() {
+  var file = document.getElementById('public_key_file').files[0];
+  if (file == null) {
+    alert("No Key");
+  } else {
+    document.getElementsByTagName('form')[0].message_body.value = window.document.theForm.input.value;
+    encryptAndSubmit();
+  }
+}
+
+function decrypt() {
+	var oTable = document.getElementById('messages');
+    //gets table
+
+    var rowLength = oTable.rows.length;
+    //gets rows of table
+
+    for (i = 0; i < rowLength; i+=2){
+    //loops through rows
+
+       var oCells = oTable.rows.item(i).cells;
+       //gets cells of current row
+       var cellLength = oCells.length;
+           for(var j = 0; j < cellLength; j++){
+           //loops through each cell in current row
+              <!--get your cell info here-->
+              var cellVal = oCells.item(j).innerHTML;
+			  cellVal = trim(cellVal);
+              oCells.item(j).innerHTML = compute('decrypt', cellVal);
+           }
+    }
+}
+
+/*********************************************************************************************
+**********************************************************************************************
+***************************  Items from readPubFile    ***************************************
+**********************************************************************************************
+*********************************************************************************************/
+
+function startPubRead()
+{
+  // obtain input element through DOM 
+
+  var file = document.getElementById('public_key_file').files[0];
+  if(file)
+	{
+    pubgetAsText(file);
+  }
+}
+
+function pubgetAsText(readFile)
+{
+	var reader;
+	try
+	{
+    reader = new FileReader();
+	}catch(e)
+	{
+		document.getElementById('public_key').innerHTML =
+			"Error: seems File API is not supported on your browser";
+	  return;
+  }
+
+  // Read file into memory as UTF-8
+  reader.readAsText(readFile, "UTF-8");
+
+  // Handle progress, success, and errors
+  reader.onload = publoaded;
+  reader.onerror = puberrorHandler;
+}
+
+
+function publoaded(evt)
+{
+  // Obtain the read file data
+  var fileString = evt.target.result;
+  public_key_1024 = fileString;
+    document.getElementById("pubgood").innerHTML = "<img src='images/greencheck.jpeg' />";
+
+}
+
+function puberrorHandler(evt)
+{
+  if(evt.target.error.code == evt.target.error.NOT_READABLE_ERR)
+	{
+    // The file could not be read
+		document.getElementById('public_key').innerHTML = "Error reading file..."
+  }
+}
+
+var public_key_1024;
+
+
+/*********************************************************************************************
+**********************************************************************************************
+********************************   Items from readPriFile   **********************************
+**********************************************************************************************
+*********************************************************************************************/
+
+function startPriRead()
+{
+  // obtain input element through DOM 
+
+  var file = document.getElementById('private_key_file').files[0];
+  if(file)
+	{
+    prigetAsText(file);
+  }
+}
+
+function prigetAsText(readFile)
+{
+	var reader;
+	try
+	{
+    reader = new FileReader();
+	}catch(e)
+	{
+		document.getElementById('private_key').innerHTML =
+			"Error: seems File API is not supported on your browser";
+	  return;
+  }
+
+  // Read file into memory as UTF-8
+  reader.readAsText(readFile, "UTF-8");
+
+  // Handle progress, success, and errors
+  reader.onload = priloaded;
+  reader.onerror = prierrorHandler;
+}
+
+
+function priloaded(evt)
+{
+  // Obtain the read file data
+  var fileString = evt.target.result;
+  private_key_1024 = fileString;
+  document.getElementById("prigood").innerHTML = "<img src='images/greencheck.jpeg' />";
+}
+
+function prierrorHandler(evt)
+{
+  if(evt.target.error.code == evt.target.error.NOT_READABLE_ERR)
+	{
+    // The file could not be read
+		document.getElementById('private_key').innerHTML = "Error reading file..."
+  }
+}
+
+var private_key_1024;
+
