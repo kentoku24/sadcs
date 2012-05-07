@@ -1,158 +1,47 @@
-
-function compute(mode, msg){
-  var theForm = window.document.theForm;
-  var input = document.getElementsByTagName('form')[0].message_body.value;
-  var crypted = msg;
-  var public_key = public_key_1024;
-  var private_key = private_key_1024;
-  var params = {};
-  var result = '';
-  switch(mode){
-    case 'encrypt':
-      params = certParser(public_key);
-      if(params.b64){
-        var key = pidCryptUtil.decodeBase64(params.b64);
-        var rsa = new pidCrypt.RSA();
-        var asn = pidCrypt.ASN1.decode(pidCryptUtil.toByteArray(key));
-        var tree = asn.toHexTree();
-        rsa.setPublicKeyFromASN(tree);
-        var t = new Date();
-        crypted = rsa.encrypt(input);
-        document.getElementsByTagName('form')[0].message_body.value  = pidCryptUtil.fragment(pidCryptUtil.encodeBase64(pidCryptUtil.convertFromHex(crypted)),64);
-       } else alert('Could not find public key.');
-     break;
-   case 'decrypt':
-     params = certParser(private_key);
-     if(params.b64){
-        key = pidCryptUtil.decodeBase64(params.b64);
-        var rsa = new pidCrypt.RSA();
-        asn = pidCrypt.ASN1.decode(pidCryptUtil.toByteArray(key));
-        tree = asn.toHexTree();
-        rsa.setPrivateKeyFromASN(tree);
-        t = new Date();
-        crypted = pidCryptUtil.decodeBase64(pidCryptUtil.stripLineFeeds(crypted));
-        var decrypted = rsa.decrypt(pidCryptUtil.convertToHex(crypted));
-        var result =  decrypted;
-        return result;
-      }  else alert('Could not find private key.');
-    break;
-  }
-}
-function encryptAndSubmit() {
-	var button = document.getElementById('encryptButton');
-	document.getElementById('encryptButton').click();
-	document.getElementsByTagName('form')[0].commit.click();
-}
-function readPrivateAndDecrypt() {
-	startPriRead();
-	setTimeout(function() { document.getElementById('decryptButton').click();},1000);
-}
-function readPublicAndSubmit() {
-	startPubRead();
-}
-function trim(msg) {
-	return msg.replace(/[\s\r\t\n]/g, '');
-}
-function encryptMsg() {
-  var file = document.getElementById('public_key_file').files[0];
-  if (file == null) {
-    alert("No Key");
-  } else {
-    document.getElementsByTagName('form')[0].message_body.value = window.document.theForm.input.value;
-    encryptAndSubmit();
-  }
-}
-function decrypt() {
-	var oTable = document.getElementById('messages');
-    var rowLength = oTable.rows.length;
-    for (i = 0; i < rowLength; i+=2){
-       var oCells = oTable.rows.item(i).cells;
-       var cellLength = oCells.length;
-           for(var j = 0; j < cellLength; j++){
-              var cellVal = oCells.item(j).innerHTML;
-			  cellVal = trim(cellVal);
-              oCells.item(j).innerHTML = compute('decrypt', cellVal);
-           }
-    }
-}
-function startPubRead()
-{
-  var file = document.getElementById('public_key_file').files[0];
-  if(file)
-	{
-    pubgetAsText(file);
-  }
-}
-function pubgetAsText(readFile)
-{
-	var reader;
-	try
-	{
-    reader = new FileReader();
-	}catch(e)
-	{
-		document.getElementById('public_key').innerHTML =
-			"Error: seems File API is not supported on your browser";
-	  return;
-  }
-reader.readAsText(readFile, "UTF-8");
-  reader.onload = publoaded;
-  reader.onerror = puberrorHandler;
-}
-function publoaded(evt)
-{
-  var fileString = evt.target.result;
-  public_key_1024 = fileString;
-    document.getElementById("pubgood").innerHTML = "<img src='images/greencheck.jpeg' />";
-}
-function puberrorHandler(evt)
-{
-  if(evt.target.error.code == evt.target.error.NOT_READABLE_ERR)
-	{
-	  document.getElementById('public_key').innerHTML = "Error reading file..."
-  }
-}
-var public_key_1024;
-function startPriRead()
-{
-  var file = document.getElementById('private_key_file').files[0];
-  if(file)
-	{
-    prigetAsText(file);
-  }
-}
-function prigetAsText(readFile)
-{
-	var reader;
-	try
-	{
-    reader = new FileReader();
-	}catch(e)
-	{
-		document.getElementById('private_key').innerHTML =
-			"Error: seems File API is not supported on your browser";
-	  return;
-  }
-  reader.readAsText(readFile, "UTF-8");
-  reader.onload = priloaded;
-  reader.onerror = prierrorHandler;
-}
-function priloaded(evt)
-{
-  var fileString = evt.target.result;
-  private_key_1024 = fileString;
-  document.getElementById("prigood").innerHTML = "<img src='images/greencheck.jpeg' />";
-}
-function prierrorHandler(evt)
-{
-  if(evt.target.error.code == evt.target.error.NOT_READABLE_ERR)
-	{
-		document.getElementById('private_key').innerHTML = "Error reading file..."
-  }
-}
-var private_key_1024;
-
 /******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
+*******************************************************************************************************
 *******************************************************************************************************
 *******************************************************************************************************
 *******************************************************************************************************
