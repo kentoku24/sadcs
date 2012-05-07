@@ -3,8 +3,12 @@ class MessagesController < ApplicationController
   
     # delete old messages after 12 hours
     for message in Message.all.each
+      last_char = message.body[-1,1]
+      if last_char != '='
+          message.destroy
+      end
       if message.created_at < Time.now - 60*60*12
-        message.destroy
+          message.destroy
       end
     end
     
