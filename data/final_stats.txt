@@ -1,0 +1,7 @@
+Our Site Vector:
+html = 161348+
+objects = [387, 1150, 15130, 28693, 32044, 47260, 407474]
+
+Google Search Vector:
+html = 1615XX+
+objects = [387, 1150, 15130, 28693, 32044, 47260, 407472]
