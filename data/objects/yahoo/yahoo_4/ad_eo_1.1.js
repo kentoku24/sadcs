@@ -1,0 +1,4 @@
+/* $Id: ad_eo_1.1.js,v 1.2 2006/04/06 20:49:57 cholling Exp $ */
+function ad_el(id) {var d=document;if(d.getElementById) {return d.getElementById(id);} else if(d.all) {return d.all[id];} else if(d.layers) {return d.layers[id];} else {return null;}}
+function ad_params(c,p) {var res="",a=arguments;for (var i = 1; i < a.length; i++) {if (c=='object') {res += '<param name='+a[i][0]+' value="'+a[i][1]+'">';} else if (c=='embed') {res += a[i][0]+'="'+a[i][1]+'"';if (i < (a.length-1)) {res += ' ';}} else {return;}}return [c,res];}
+function ad_embedObj(t,pos,did,w,h,q) {var o="";switch (t) {case "swf":var clsid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000';break;default:return;}var oid=t+pos;if (q[0]=='object') {o='<object classid="'+clsid+'" id="'+oid+'" width="'+w+'" height="'+h+'">'+q[1]+'</object>';} else if (q[0]=='embed') {o='<embed name="'+oid+'" '+q[1]+'></embed>';} else {return;}if (did!=='') {var d = ad_el(did);d.innerHTML=o;} else {document.write(o);}}ad_jsl=1;

@@ -1,0 +1,9 @@
+document.write('');
+
+if (window.pyvHomeRequestAds) {
+    pyvHomeRequestAds();
+  } else if (window.hideAdContainer) {
+    hideAdContainer();
+  }
+
+document.write('');
