@@ -277,6 +277,7 @@ var private_key_1024;
       	  <%= render 'message', :message => message %>
     		<% end %>
   		</table>
+  		<%= will_paginate(@messages) %>
   </article>
  
   <footer>

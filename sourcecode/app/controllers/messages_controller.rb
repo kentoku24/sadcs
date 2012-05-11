@@ -14,17 +14,21 @@ class MessagesController < ApplicationController
     end
     
     @message  = Message.new
-	  @messages = Message.order("mixnum");
+    @messages = Message.order("mixnum")
+    @messages = @messages.paginate(:page => params[:page], :per_page => 5)
+    if @messages.length < 5
+    	for i in (1..(5-@messages.length))
+    		temp = Message.new
+    		temp.body = "JivNKWAFpYlxqoPJTdaB3czaXizl7HNgv2jCPTIzdE9VMhSPpVG/NjgAeJ0C9Z8t64N6u9wrChtSRKdsvQBM8dlsre4dHu9rIvxofOVvn4F4+YFhKjkKwiIt8hrb47Z0raJIqa2bFWlFYV7vlvbkDD60b6hEiZEF3t1sdS741VY="
+    		temp.mixnum = rand(100)
+    		@messages = @messages.append(temp)
+    	end
+    end
+	
 	  
-	  if @messages.length < 3
-	    @messages = {}
-	  end
+
 	  
-	  respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @messages }
-      format.xml { render :layout => false }
-	  end
+
   end
   
   
